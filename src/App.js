@@ -1,9 +1,13 @@
-import Navbar from "./components/navbar"
+ import Navbar from "./components/navbar" 
+ import { Shop } from "./Pages/shop";
 
 function App() {
   return (
-  <div> <Navbar/></div>
-  
+ 
+  <div>
+   <Navbar/>
+  <Shop/>
+  </div>
   );
 }
 
