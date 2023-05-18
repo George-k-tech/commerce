@@ -1,13 +1,14 @@
- import Navbar from "./components/navbar" 
- import { Shop } from "./Pages/shop";
+import { Navbar } from "./components/navbar";
+import { Shop } from "./Pages/shop";
+import {Footer} from "./components/footer";
 
 function App() {
   return (
- 
-  <div>
-   <Navbar/>
-  <Shop/>
-  </div>
+    <div>
+      <Navbar />
+      <Shop />
+      <Footer/>
+    </div>
   );
 }
 

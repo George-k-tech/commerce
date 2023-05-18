@@ -2,16 +2,18 @@ import React from "react";
 
 const Navbar = () => {
   return (
-    <div className=" container  border border-amber-300">
-      <img src = "" alt="LOGO"/>
-        <ul className=" flex justify-end space-x-9 ">
+      <div className="border border-red-700 items-center pt-4 pb-4">
+      <ul className=" flex flex-row justify-end space-x-4 ">
+      <div className="container flex justify-items-start">
+        <img src = "" alt="LOGO"/> 
+        </div>
           <li>Home</li> 
           <li>Blog</li>
           <li>Profile</li>
           <li>Cart</li>
         </ul>
-    </div>
+      </div>
   );
 };
 
-export default Navbar;
+export {Navbar};
