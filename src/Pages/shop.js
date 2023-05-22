@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
-import client from "../sanity_client/client";
-import imageUrlBuilder from "@sanity/image-url";
+import {client, urlFor} from "../sanity_client/client";
 
-
-const builder = imageUrlBuilder(client);
-
-function urlFor(source) {
-  return builder.image(source);
-}
 
 const Shop = () => {
   const [products, setProducts] = useState(null);
@@ -61,7 +54,7 @@ const Shop = () => {
             >
               <div className="flex flex-col items-center">
                 <img
-                src={urlFor(product.productImage). width(200).url()}
+                src={urlFor(product.productImage).width(200).url()}
                 alt={product.title}
                 className="rounded-full object-cover w-40 h-40 border-4 shadow-inner std-border"
                 />
