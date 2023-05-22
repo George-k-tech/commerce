@@ -1,89 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import client from "../sanity_client/client";
+import imageUrlBuilder from "@sanity/image-url";
+
+
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source);
+}
 
 const Shop = () => {
+  const [products, setProducts] = useState(null);
 
+  useEffect(() => {
+    client.fetch(
+      `*[_type == "products"]{
+        _id,
+        productName,
+        productPrice,
+        productDesc,
+        productImage{
+          asset->{
+            _id,
+            url
+          },
+        },
+      }`
+    )
+    .then((data)=> setProducts(data))
+    .then(console.error);
+  }, []);
   return (
-    <div>
-      <div className=" border border-red-700">
-        <h1 className="text text-center pt-2 pb-2">Best selling Products</h1>
-        <div className="grid grid-rows-1 grid-cols-3 gap-3">
-          <div>
-            <img
-              src="https://cdn.theatlantic.com/thumbor/W544GIT4l3z8SG-FMUoaKpFLaxE=/0x131:2555x1568/1600x900/media/img/mt/2017/06/shutterstock_319985324/original.jpg"
-              alt=" one"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
-            </div>
-          </div>
-          <div>
-            <img
-              src="https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg"
-              alt=" two"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
-            </div>
-          </div>
-          <div>
-            <img
-              src="https://www.washingtonpost.com/resizer/TRd_PiH-XWTQ-x4WxlRv0XnfQO8=/arc-anglerfish-washpost-prod-washpost/public/C467I24CPAONX27SFIT3ICMAMY.jpg"
-              alt=" three"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
-            </div>
-          </div>
+    <section className="container w-full lg:px-0 px-5 lg:w-3/4 mx-auto min-h-screen">
+      <div className="flex lg:flex-row flex-col my-10 justify-center">
+        <div className="flex items-center lg:mt-0 mt-5 gap-3 lg:flex-row flex-col">
+          <input
+          type="text"
+          className="w-full lg:w-80 p-2 border-2 border-gray-500 rounded focus:outline-none"
+          />
+          <button 
+          style={{backgroundColor: "#FE043C"}}
+          className="rounded w-full lg:w-auto px-10 py-3 text-white"
+          >
+              Search
+          </button>
         </div>
       </div>
-      <div className="border border-blue-900">
-        <h1 className="text text-center pt-2 pb-2">Shop</h1>
-        <div className="">
-          <h1>sort</h1>
-        </div>
-        <div className="grid grid-rows-1 grid-cols-3 gap-3">
-          <div>
-            <img
-              src="https://cdn.theatlantic.com/thumbor/W544GIT4l3z8SG-FMUoaKpFLaxE=/0x131:2555x1568/1600x900/media/img/mt/2017/06/shutterstock_319985324/original.jpg"
-              alt=" one"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
+
+    <hr className="my-10"/>
+    <div  className="my-5">
+      <h3 className="text-3xl font-bold text-center my-10 lg:my-5">
+        Products
+      </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          { products &&
+
+          products.map((product) =>(
+            <div className="bg-gray-100 rounded shadow-xl p-5 std-border"
+            key={product.productName}
+            >
+              <div className="flex flex-col items-center">
+                <img
+                src={urlFor(product.productImage). width(200).url()}
+                alt={product.title}
+                className="rounded-full object-cover w-40 h-40 border-4 shadow-inner std-border"
+                />
+                <h4 className="text-2xl pt-3 font-bold capitalize">
+                  {product.productName}
+                </h4>
+              </div>
+              <p className="mt-5">
+                {product.productDesc}
+              </p>
             </div>
-          </div>
-          <div>
-            <img
-              src="https://ychef.files.bbci.co.uk/976x549/p07ryyyj.jpg"
-              alt=" two"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
-            </div>
-          </div>
-          <div>
-            <img
-              src="https://www.washingtonpost.com/resizer/TRd_PiH-XWTQ-x4WxlRv0XnfQO8=/arc-anglerfish-washpost-prod-washpost/public/C467I24CPAONX27SFIT3ICMAMY.jpg"
-              alt=" three"
-            />
-            <div className="text text-center">
-              <h1>This cat</h1>
-              <p>This is the cat</p>
-              <p>price :</p>
-            </div>
-          </div>
-        </div>
+          ))
+
+          }
       </div>
     </div>
+
+    </section>
   );
 };
 

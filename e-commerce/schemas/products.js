@@ -1,41 +1,42 @@
 export default {
-    name: 'product',
-    title: 'Product',
+    name: 'products',
+    title: 'Products',
     type:'document',
     fields: [
-        {
-        name:'image',
-        title:'Image',
-        type:'array',
-        of: [{type: 'image'}],
-        options:{
-            hotspot:true,
-        }
-    },
     {
-        name:'name',
-        title: 'Name',
-        type:'string'
+        name:'productName',
+        title: 'Product Name',
+        type:'string',
+        validation:Rule => Rule.required()
     },
     {
         name:'slug',
         title:'Slug',
         type:'slug',
         options:{
-            source:'name',
+            source:'productName',
             maxLength:90,
-        }
+        },
+        validation:Rule => Rule.required()
     },
     {
-        name:'price',
-        title:'Price',
+        name:'productPrice',
+        title:'Product Price',
         type:'number',
     },
     {
-        name:'details',
-        title:'Details',
+        name:'productDesc',
+        title:'Product Description',
         type:'string'
 
-    }
+    },
+    {
+        name:'productImage',
+        title:'Product Image',
+        type:'image',
+        options:{
+            hotspot:true,
+        }
+    },
 ]
 }
