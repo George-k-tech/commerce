@@ -1,8 +1,8 @@
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import { Navbar } from "./components/navbar";
-import { Shop } from "./Pages/shop";
-import { Footer } from "./components/footer";
-import { Cart } from "./Pages/cart";
+import { Navbar } from "./components/Navbar";
+import { Shop } from "./Pages/Shop";
+import { Footer } from "./components/Footer";
+import { Cart } from "./Pages/Cart";
 function App() {
   return (
     <div>
