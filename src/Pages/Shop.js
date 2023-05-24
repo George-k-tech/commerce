@@ -4,13 +4,14 @@ import Banner from "../components/Banner";
 import Product from "./Product";
 
 const Shop = () => {
-  const [products, setProducts] = useState(null);
+  const  [products, setProducts] = useState(null);
 
   useEffect(() => {
     client
       .fetch(
         `*[_type == "products"]{
         _id,
+        slug,
         productName,
         productPrice,
         productDesc,
@@ -38,7 +39,7 @@ const Shop = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {products &&
             products.map((product) => (
-              <Product data={product}/>
+              <Product key={product._id}  data={product}/>
             ))}
         </div>
       </div>
