@@ -1,13 +1,15 @@
 import React from "react";
 import { urlFor } from "../sanity_client/client";
+import { Link } from "react-router-dom";
+
 
 const Product = (props) => {
-  const { _id, productName, productPrice, productDesc, productImage } = props.data;
+  const {productName, productPrice, productDesc, productImage,slug } = props.data;
   return (
     <div
-      className="bg-gray-100 rounded shadow-xl p-5 std-border"
-      key={productName}
+      className="bg-gray-100 rounded shadow-xl p-5 std-border hover:bg-slate-400"
     >
+      <Link to={`/product/${slug.current}`}>
       <div className="flex flex-col items-center">
         <img
           src={urlFor(productImage).width(200).url()}
@@ -21,6 +23,7 @@ const Product = (props) => {
       <div className="flex justify-center mt-2">
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"> Add to cart</button>
       </div>
+      </Link>
     </div>
   );
 };
